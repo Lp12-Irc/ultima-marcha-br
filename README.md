@@ -1,48 +1,31 @@
-# 🏁 Última Marcha BR — Site Oficial
+# Última Marcha BR — Portal Web
 
-Site do jogo **Última Marcha BR** (Roblox). É um site estático: só HTML, CSS e JavaScript, sem servidor. Dá pra hospedar de graça no **GitHub Pages**.
+Portal de consulta do jogo **Última Marcha BR** no Roblox (`Place ID: 106981767858651`), feito em HTML, CSS e JavaScript puro para hospedagem estática via GitHub Pages.
 
-## ✨ Funções
+- **Site no ar:** https://lp12-irc.github.io/ultima-marcha-br/
+- **Jogo no Roblox:** https://www.roblox.com/games/106981767858651/ltima-Marcha-BR
+- **Discord oficial:** https://discord.gg/zy2exUyTEX
 
-| Página | O que faz |
-|---|---|
-| **Início** | Destaques, jogadores online, último patch e código da vez |
-| **Carros** | Enciclopédia com busca, filtro por categoria e ordenação |
-| **Tuning** | Simulador de builds (potência, 0-100, arrancada, custo), com salvar e compartilhar link |
-| **Comparar** | Dois carros lado a lado com placar |
-| **Mapa** | Mapa interativo com filtros (oficinas, ferro-velhos, postos...) |
-| **Ranking** | Arrancada, Circuito da Serra, mais rico e mais entregas |
-| **Notícias** | Patch notes e eventos |
-| **Códigos** | Códigos promocionais com botão de copiar |
+## Estrutura
 
-## ✏️ Como editar o conteúdo
+- `index.html` — casca principal e navegação SPA por hash (`#/carros`, `#/tuning`, etc.)
+- `css/style.css` — layout escuro automotivo sem dependências externas
+- `js/data.js` — catálogo de carros, peças de preparação, locais do mapa, notas de update e códigos
+- `js/app.js` — roteador, cálculo de performance da bancada de tuning e leitura de estatísticas
+- `js/stats.json` — snapshot atualizado automaticamente com jogadores online, visitas, favoritos e membros do Discord
+- `.github/workflows/sync-stats.yml` — GitHub Action que consulta as APIs oficiais do Roblox e Discord a cada 30 min
 
-**Tudo** fica em [`js/data.js`](js/data.js):
+## Como atualizar dados do jogo
 
-- `GAME`: link do jogo no Roblox e do Discord (**troque primeiro!**)
-- `CARROS`: carros (nome, cv, peso, preço, cor...)
-- `PECAS`: peças do simulador de tuning
-- `NOTICIAS`, `CODIGOS`, `MAPA_LOCAIS`, `RANKING`
+Edite apenas `js/data.js`:
+- `CARROS`: ficha de cada veículo (potência, torque, peso, tração, preço rodando e valor no ferro-velho)
+- `PECAS`: multiplicadores de motor, indução, câmbio, pneus, suspensão e alívio de peso
+- `CODIGOS`: adicione objetos `{ codigo, recompensa, ativo, expira }` quando saírem códigos novos
+- `NOTICIAS` e `MAPA_LOCAIS`: histórico de patches e pontos de interesse
 
-Pra adicionar um carro, copie uma linha de `CARROS`, troque o `id` (que precisa ser único) e os valores.
+## Integração futura com o Roblox Studio (`HttpService`)
 
-## 🚀 Publicar no GitHub Pages (sem instalar nada)
-
-1. Crie uma conta em https://github.com e clique em **New repository**
-2. Nome: `ultima-marcha-br` → **Public** → **Create repository**
-3. Clique em **uploading an existing file** e arraste **todo o conteúdo desta pasta** (`index.html`, `css/`, `js/`, `README.md`, `.nojekyll`)
-4. Clique em **Commit changes**
-5. Vá em **Settings → Pages** → Source: **Deploy from a branch** → Branch: `main` / `(root)` → **Save**
-6. Em 1-2 minutos o site fica no ar em: `https://SEU-USUARIO.github.io/ultima-marcha-br/`
-
-## 💻 Testar no computador
-
-Basta abrir o `index.html` no navegador (dois cliques).
-
-## 🔌 Próximos passos (integração com o jogo)
-
-- **Jogadores online reais**: hoje o contador é simulado (`iniciarOnline()` em `app.js`). Dá pra usar um backend pequeno (ex.: Cloudflare Workers) que consulta a API do Roblox.
-- **Ranking real**: o servidor do jogo envia os dados via `HttpService` para uma API, e o site lê de lá.
-- **Login com Roblox / garagem do jogador**: usar o OAuth 2.0 oficial do Roblox (precisa de backend).
-
-> Os valores de desempenho do simulador são aproximações para fins de jogo.
+Para alimentar o quadro de tempos (`#/ranking`) direto dos servidores do jogo quando o Beta abrir:
+1. Crie um endpoint leve (Cloudflare Worker ou Supabase) recebendo `POST` autenticado por header secreto do servidor Roblox (`HttpService:PostAsync`).
+2. Salve os melhores tempos de 402m / volta por `UserId`.
+3. Aponte `pageRanking` em `js/app.js` para ler o JSON público desse endpoint e mude `RANKING_DEMO = false` em `js/data.js`.

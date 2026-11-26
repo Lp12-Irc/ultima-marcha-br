@@ -3,32 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Última Marcha BR — Site Oficial</title>
-  <meta name="description" content="Site oficial do jogo Última Marcha BR no Roblox: carros, simulador de tuning, mapa, ranking, códigos e novidades." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏁</text></svg>" />
+  <title>Última Marcha BR</title>
+  <meta name="description" content="Carros, simulador de tuning, mapa, códigos e atualizações do Última Marcha BR, jogo de mecânica brasileira no Roblox." />
+  <meta property="og:title" content="Última Marcha BR" />
+  <meta property="og:image" content="img/logo.png" />
+  <link rel="icon" href="img/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
       <a href="#/" class="logo">
-        <span class="logo-gear">⚙</span>
-        <span class="logo-text">ÚLTIMA <b>MARCHA</b> <i>BR</i></span>
+        <img src="img/logo.png" alt="" />
+        <span>Última Marcha BR</span>
       </a>
-      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">☰</button>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">Menu</button>
       <nav class="nav" id="nav">
-        <a href="#/" data-route="">Início</a>
         <a href="#/carros" data-route="carros">Carros</a>
         <a href="#/tuning" data-route="tuning">Tuning</a>
         <a href="#/comparar" data-route="comparar">Comparar</a>
         <a href="#/mapa" data-route="mapa">Mapa</a>
         <a href="#/ranking" data-route="ranking">Ranking</a>
-        <a href="#/noticias" data-route="noticias">Notícias</a>
+        <a href="#/noticias" data-route="noticias">Atualizações</a>
         <a href="#/codigos" data-route="codigos">Códigos</a>
-        <a href="#" class="btn btn-play" id="playBtnNav" target="_blank" rel="noopener">▶ Jogar</a>
+        <a href="#" class="btn btn-primary btn-sm nav-play" id="playBtnNav" target="_blank" rel="noopener">Jogar</a>
       </nav>
     </div>
   </header>
@@ -38,14 +39,11 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div>
-        <div class="logo small"><span class="logo-gear">⚙</span><span class="logo-text">ÚLTIMA <b>MARCHA</b> <i>BR</i></span></div>
-        <p class="muted">Site oficial da comunidade. Não afiliado à Roblox Corporation.</p>
+        <strong>Última Marcha BR</strong>
+        <p class="muted">Feito pela comunidade. Não tem ligação com a Roblox Corporation.</p>
       </div>
       <div class="footer-links">
-        <a href="#/carros">Carros</a>
-        <a href="#/tuning">Tuning</a>
-        <a href="#/mapa">Mapa</a>
-        <a href="#/codigos">Códigos</a>
+        <a href="#" id="robloxFooter" target="_blank" rel="noopener">Roblox</a>
         <a href="#" id="discordFooter" target="_blank" rel="noopener">Discord</a>
       </div>
     </div>
@@ -54,7 +52,7 @@
   <div class="modal" id="modal" aria-hidden="true">
     <div class="modal-backdrop" data-close></div>
     <div class="modal-card">
-      <button class="modal-close" data-close aria-label="Fechar">✕</button>
+      <button type="button" class="modal-close" data-close aria-label="Fechar">Fechar</button>
       <div id="modalBody"></div>
     </div>
   </div>
